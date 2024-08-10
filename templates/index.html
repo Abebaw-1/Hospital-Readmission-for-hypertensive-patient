@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Hospital readmission prediction for hypertensive patient treatment</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<style type="text/css">
+*{margin:0;padding:0;box-sizing:border-box}body,html{height:100%;font-family:Poppins-Regular,sans-serif}a{font-family:Poppins-Regular;font-size:14px;line-height:1.7;color:#666;margin:0;transition:all .4s;-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s}a:focus{outline:0!important}a:hover{text-decoration:none}h1,h2,h3,h4,h5,h6{margin:0}input{outline:0;border:none}input:focus::-webkit-input-placeholder{color:transparent}input:focus:-moz-placeholder{color:transparent}input:focus::-moz-placeholder{color:transparent}input:focus:-ms-input-placeholder{color:transparent}input::-webkit-input-placeholder{color:#adadad}input:-moz-placeholder{color:#adadad}input::-moz-placeholder{color:#adadad}input:-ms-input-placeholder{color:#adadad}button{outline:0!important;border:none;background:0 0}button:hover{cursor:pointer}.container{max-width:1200px}.container-contact100{width:100%;min-height:100vh;display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;padding:15px;background:#a64bf4;background:-webkit-linear-gradient(45deg,#00dbde,#fc00ff);background:-o-linear-gradient(45deg,#00dbde,#fc00ff);background:-moz-linear-gradient(45deg,#00dbde,#fc00ff);background:linear-gradient(45deg,#00dbde,#fc00ff)}.wrap-contact100{width:500px;background:#fff;border-radius:10px;overflow:hidden;padding:42px 55px 45px 55px}.contact100-form{width:100%}.contact100-form-title{display:block;font-family:Poppins-Bold;font-size:39px;color:#333;line-height:1.2;text-align:center;padding-bottom:10px}.wrap-input100{width:100%;position:relative;border-bottom:2px solid #d9d9d9;padding-bottom:10px;margin-bottom:15px}.input100{display:block;width:100%;background:0 0;font-family:Poppins-Medium;font-size:18px;color:#333;line-height:1.2;padding:0 5px}.focus-input100{position:absolute;display:block;width:100%;height:100%;top:0;left:0;pointer-events:none}.focus-input100::before{content:"";display:block;position:absolute;bottom:-2px;left:0;width:0;height:2px;-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s;transition:all .4s;background:#7f7f7f}input.input100{height:40px}.input100:focus+.focus-input100::before{width:100%}.has-val.input100+.focus-input100::before{width:100%}.container-contact100-form-btn{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;flex-wrap:wrap;justify-content:center;padding-top:13px}.wrap-contact100-form-btn{width:100%;display:block;position:relative;z-index:1;border-radius:25px;overflow:hidden;margin:0 auto}.contact100-form-bgbtn{position:absolute;z-index:-1;width:300%;height:100%;background:#a64bf4;background:-webkit-linear-gradient(left,#00dbde,#fc00ff,#00dbde,#fc00ff);background:-o-linear-gradient(left,#00dbde,#fc00ff,#00dbde,#fc00ff);background:-moz-linear-gradient(left,#00dbde,#fc00ff,#00dbde,#fc00ff);background:linear-gradient(left,#00dbde,#fc00ff,#00dbde,#fc00ff);top:0;left:-100%;-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s;transition:all .4s}.contact100-form-btn{display:-webkit-box;display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;justify-content:center;align-items:center;padding:0 20px;width:100%;height:50px;font-family:Poppins-Medium;font-size:16px;color:#fff;line-height:1.2}.wrap-contact100-form-btn:hover .contact100-form-bgbtn{left:0}.contact100-form-btn i{-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s;transition:all .4s}.contact100-form-btn:hover i{-webkit-transform:translateX(10px);-moz-transform:translateX(10px);-ms-transform:translateX(10px);-o-transform:translateX(10px);transform:translateX(10px)}@media (max-width:576px){.wrap-contact100{padding:72px 15px 65px 15px}}.wrap-contact100{width:800px;background:#fff;border-radius:10px;overflow:hidden;padding:42px 55px 45px 55px}.contact100-form-title{font-size:26px}
+</style>
+<div class="container-contact100">
+<div class="wrap-contact100">
+<form action="{{ url_for('predict') }}" method="POST">
+<span class="contact100-form-title" style="font-size:32px">Hospital readmission prediction for hypertensive patient treatment</span>
+<span class="contact100-form-title" id="output" style="color: #ff0000;" >&nbsp;</span>
+     <table>
+        <tr>
+         <td>                                                                                              
+<div class="wrap-input100 " >
+<span class="label-input100">sex</span>
+<select  class="input100" id="sex" name="sex" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >
+<option value="">Select sex</option>
+<option value="0">Female</option>
+<option value="1">Male</option>
+</select>
+<span class="focus-input100"></span>
+</div>
+
+<div class="wrap-input100 " >
+<span class="label-input100">age</span>
+<select  class="input100" id="age" name="age" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >                                                                                                
+<option value="">Select age</option>
+<option value="0">twenty one - thirty</option>
+<option value="1">thirty one - fourty</option>
+<option value="2">fourty one - fifty</option>
+<option value="3">fifty one - sixty</option> 
+<option value="4">sixty one - Seventy</option>
+<option value="5">Seventy one - Eighty</option>  
+<option value="6">Eighty one - Ninety</option>                                                                                                                                                                                                               
+</select>
+<span class="focus-input100"></span>
+</div>
+                                                                                                          
+<div class="wrap-input100 " >
+<span class="label-input100">Current Systolic PB</span>
+<select  class="input100" id="Current Systolic PB" name="Current Systolic PB" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >                                                                                                
+<option value="">Select Current Systolic PB</option>
+<option value="0">one hundred twenty one - one hundred forty</option>
+<option value="1">one hundred forty one - one hundred sixty</option>
+<option value="2">one hundred sixty one - one hundred eighty</option>
+<option value="3">one hundred eighty one - two hundred</option> 
+<option value="4">two hundred one - two hundred twenty</option>
+<option value="5">two hundred twenty one - two hundred forty</option>  
+</select>
+<span class="focus-input100"></span>
+</div>
+ 
+ <div class="wrap-input100 " >
+<span class="label-input100">Current diastolic PB</span>
+<select  class="input100" id="Current diastolic PB" name="Current diastolic PB" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >                                                                                                
+<option value="">Select Current diastolic PB</option>
+<option value="0">seventy -ninty</option>
+<option value="1">ninty one - one hundred ten</option>
+<option value="2">one hundred eleven - one hundred thirty</option>
+<option value="3">one hundred thirty one - one hundred fifty</option>  
+</select>
+<span class="focus-input100"></span>
+</div>                                                                                                         
+                                                                                                          
+<div class="wrap-input100 " >
+<span class="label-input100">Previous Systolic PB</span>
+<select  class="input100" id="Previous Systolic PB" name="Previous Systolic PB" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >                                                                                                
+<option value="">Select Previous Systolic PB</option>
+<option value="0">one hundred twenty one - one hundred forty</option>
+<option value="1">one hundred forty one - one hundred sixty</option>
+<option value="2">one hundred sixty one - one hundred eighty</option>
+<option value="3">one hundred eighty one - two hundred</option> 
+<option value="4">two hundred one - two hundred twenty</option>
+<option value="5">two hundred twenty one - two hundred forty</option>  
+</select>
+<span class="focus-input100"></span>
+</div>
+ 
+                                                                                                          <div class="wrap-input100 " >
+<span class="label-input100">Previous diastolic PB</span>
+<select  class="input100" id="Previous diastolic PB" name="Previous diastolic PB" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >                                                                                                
+<option value="">Select Previous diastolic PB</option>
+<option value="0">seventy -ninty</option>
+<option value="1">ninty one - one hundred ten</option>
+<option value="2">one hundred eleven - one hundred thirty</option>
+<option value="3">one hundred thirty one - one hundred fifty</option>  
+</select>
+<span class="focus-input100"></span>
+</div>                                                                                                      
+<div class="wrap-input100" style="border-bottom: 0px;" >
+<span class="label-input100">Previous Diag 3</span>
+<select class="input100"  id="Previous Diag 3" name="Previous Diag 3" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >
+<option value="">Select Previous Diag 3</option>
+<option value="1">CKD</option>
+<option value="2">Headache</option>
+<option value="3">AF</option>
+<option value="4">DVHD</option>
+<option value="5">COPD</option>
+<option value="6">HHD</option>
+<option value="7">LAD</option>
+<option value="8">BPH</option>
+<option value="9">PAD</option>
+<option value="10">GA</option>
+<option value="11">PN</option>
+<option value="12">TCD</option>
+<option value="13">RVI</option>
+<option value="14">OA</option>
+<option value="15">PA</option>
+<option value="16">acm</option>
+<option value="17">TMNG</option>
+<option value="18">PNP</option>
+<option value="19">AMD</option>
+<option value="20">ATP</option>
+<option value="21">CRVHD</option>
+<option value="22">PD</option>
+ <option value="23">RA</option>
+<option value="24">AGM</option>
+<option value="25">NS</option>
+<option value="26">HD</option>
+<option value="27">IFS</option>
+<option value="28">TNG</option>
+<option value="29">AGN</option>
+<option value="30">Radidopathy</option>
+<option value="31">Renalcyst</option>
+<option value="32">dcmp</option>
+<option value="33">aom</option>
+<option value="34">PTB</option>
+<option value="35">Psychotic</option>
+<option value="36">o</option>
+<option value="37">DVHM</option>
+</select>
+<span class="focus-input100"></span>
+</div>
+     </td>
+     <td> 
+ <div class="wrap-input100" style="border-bottom: 0px;" >
+<span class="label-input100">addmitted</span>
+<select class="input100"  id="addmitted" name="addmitted" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >
+<option value="">Select addmitted</option>
+<option value="0">No</option>
+<option value="1">Yes</option>
+         </select>
+<span class="focus-input100"></span>
+</div>
+<div class="wrap-input100" style="border-bottom: 0px;" >
+<span class="label-input100">Comorbidity Disease</span>
+<select class="input100"  id="Comorbidity Disease" name="Comorbidity Disease" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >
+<option value="">Select Comorbidity Disease</option>
+<option value="1">T2-DM</option>
+<option value="2">Stroke</option>
+<option value="3">B.Asthma</option>
+<option value="4">Obesty</option>
+<option value="5">COPD</option>
+<option value="6">CHF</option>
+<option value="7">DCMP</option>
+<option value="8">Parkison</option>
+<option value="9">T1-DM</option>
+</select>
+<span class="focus-input100"></span>
+</div>
+<div class="wrap-input100" style="border-bottom: 0px;" >
+<span class="label-input100">Stage of HTN(LR)</span>
+<select class="input100"  id="Stage of HTN(LR)" name="Stage of HTN(LR)" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >
+<option value="">Select Stage of HTN(LR)</option>
+<option value="1">Stage 1</option>
+<option value="2">Stage 2</option>
+<option value="3">Emergency</option>
+<option value="4">HTN urgent</option>
+<option value="5">Pre HTN</option>
+ </select>
+<span class="focus-input100"></span>
+</div>
+<div class="wrap-input100" style="border-bottom: 0px;" >
+<span class="label-input100">Drug 1</span>
+<select class="input100"  id="Drug 1" name="Drug 1" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >
+<option value="">Select Drug 1</option>
+<option value="1">HHD</option>
+<option value="2">Enalapril 5mg</option>
+<option value="3">Refill</option>
+<option value="4">Metformine 500mg</option>
+<option value="5">Atorvastation 10mg</option>
+<option value="6">Nifedipine 20mg</option>
+<option value="7">Amitriptylion 25mg</option>
+<option value="8">ASA 81mg</option>
+</select>
+<span class="focus-input100"></span>
+</div>
+ <div class="wrap-input100" style="border-bottom: 0px;" >
+<span class="label-input100">Drug 2</span>
+<select class="input100"  id="Drug 2" name="Drug 2" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >
+<option value="">Select Drug 2</option>
+<option value="1">HCT 25mg</option>
+<option value="2">Levodopa 25mg</option>
+<option value="3">Diagoxin 0.12mg</option>
+<option value="4">PCM 19mg</option>
+<option value="5">Amlodipine 10mg</option>
+<option value="6">PTU 100mg</option>
+<option value="7">Tramodol 50mg</option>
+<option value="8">B.penicillin 1.2mg/option>
+<option value="9">Thyroxine 100mg</option>
+<option value="10">NPH 36/22mg</option>
+ </select>
+<span class="focus-input100"></span>
+</div>
+ <div class="wrap-input100" style="border-bottom: 0px;" >
+<span class="label-input100">Drug 3</span>
+<select class="input100"  id="Drug 3" name="Drug 3" style="padding: 10px 5px;margin-top: 15px;border: 2px solid #d9d9d9;" >
+<option value="">Select Drug 3</option>
+<option value="1">Salt free diet</option>
+<option value="2">Lasix 40mg</option>
+<option value="3">MTF 500mg</option>
+<option value="4">HCF 12.5mg</option>
+<option value="5">Diclofinae 10mg</option>
+<option value="6">Carbidage 25/250mg</option>
+<option value="7">Body exercise</option>
+ </select>
+<span class="focus-input100"></span>
+    </div>
+      </td>
+       </tr>
+         </table>                                                                                                 
+<div class="container-contact100-form-btn">                                                                                                        <div class="container-contact100-form-btn">
+<div class="wrap-contact100-form-btn">
+<div class="contact100-form-bgbtn"></div>
+<button type=\"predict\" class=\"btn btn-primary btn-block btn-large\">predict</button>
+</div>
+</div                                                                                                       
+</form>                                                                                                                                                                                                      
+</div>
+ <br>
+   <br>
+  <h1>{{ prediction_text }}</h1> 
+</div> 
+</body>
+</html>
