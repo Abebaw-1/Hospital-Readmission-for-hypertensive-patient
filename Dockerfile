@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.9.13
 ENV PYTHONBEFFERED True
 ENV APP_HOME/app
 COPY --/app
