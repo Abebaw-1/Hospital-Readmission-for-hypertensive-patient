@@ -1,6 +1,9 @@
 FROM python:3.9.13
-COPY . /app
+ENV PYTHONBEFFERED True
+ENV APP_HOME/app
+COPY --/app
 WORKDIR /app
 RUN pip install -r requirements.txt
-RUN pip install 
-CMD ["jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0"]
+RUN pip install gunicorn
+CMD exec gunicorn --bind :$port --workers 1 --threads 8 --timeout 0 app:app
+
